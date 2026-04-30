@@ -1,5 +1,31 @@
-# Coulisse Heir SEO Agent v2.0 — Setup Guide
-## Powered by Expert Council PDCA Framework
+# Coulisse Heir SEO Agent v3 — Setup Guide
+
+## Setup Status (as of 2026-04-30)
+
+| Secret / Config | Status | Notes |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | ✅ Set | Direct Anthropic key |
+| `WP_URL` | ✅ Set | https://coulisseheir.com |
+| `WP_USERNAME` | ✅ Set | ad_chadmin |
+| `WP_APP_PASSWORD` | ✅ Set | Generated via WP Profile → Application Passwords |
+| `BRAND` | ✅ Set | coulissehair |
+| `SITE_URL` | ✅ Set | https://coulisseheir.com/ |
+| `NOTIFICATION_EMAIL` | ✅ Set | stephanie.au@exgroup.com.sg |
+| `GMAIL_USER` | ✅ Set | coulisseheir.seo@gmail.com |
+| `GMAIL_APP_PASSWORD` | ✅ Set | Gmail App Password |
+| `GSC_CREDENTIALS_JSON` | ⏳ Pending | Need to identify GSC account owner for coulisseheir.com |
+| `PEXELS_API_KEY` | ⏳ Optional | For featured images — get free key at pexels.com/api |
+| Vault: brand_voice.md | ✅ Done | Populated from coulisseheir.com |
+| Vault: locations.json | ✅ Done | ION Orchard #04-02 |
+| Vault: services.json | ✅ Done | 8 services with real pricing |
+| Vault: faqs.json | ✅ Done | 6 FAQs |
+| Vault: stylists.json | ✅ Done | Nico Tan, Gina, KG |
+
+**Agent is ready to run.** GSC data is optional — the agent will generate content from vault data without it.
+
+To trigger a manual run: **GitHub → Actions → Coulisse Heir SEO Agent v3 → Run workflow → weekly**
+
+---
 
 ---
 
