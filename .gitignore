@@ -1,0 +1,19 @@
+.env
+config/gsc_credentials.json
+config/gbp_oauth_credentials.json
+config/gbp_token.json
+__pycache__/
+*.pyc
+.DS_Store
+.pytest_cache/
+
+# Vault: reviews contain customer names (public data but keep out of git)
+vault/*/reviews.json
+vault/*/reviews_import.csv
+vault/*/reviews_import_*.csv.done
+vault/*/review_clusters.json
+vault/*/gsc_data.json
+vault/*/posts_log.json
+
+# Keep vault templates (services, stylists, faqs, brand_voice, locations)
+# These are committed and maintained by the team

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coulisse Heir - Upload Reviews</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+.card { background: white; border-radius: 16px; padding: 40px; max-width: 480px; width: 90%; box-shadow: 0 4px 24px rgba(0,0,0,0.08); text-align: center; }
+h1 { font-size: 1.5rem; color: #1a1a2e; margin-bottom: 8px; }
+.subtitle { color: #666; font-size: 0.9rem; margin-bottom: 32px; }
+.drop-zone { border: 2px dashed #ccc; border-radius: 12px; padding: 48px 24px; cursor: pointer; transition: all 0.2s; margin-bottom: 24px; }
+.drop-zone:hover, .drop-zone.dragover { border-color: #4361ee; background: #f0f4ff; }
+.drop-zone svg { width: 48px; height: 48px; color: #999; margin-bottom: 12px; }
+.drop-zone p { color: #666; font-size: 0.95rem; }
+.drop-zone .hint { color: #999; font-size: 0.8rem; margin-top: 8px; }
+input[type="file"] { display: none; }
+.status { padding: 16px; border-radius: 8px; margin-top: 16px; font-size: 0.9rem; display: none; }
+.status.loading { display: block; background: #e8f0fe; color: #1a73e8; }
+.status.success { display: block; background: #e6f4ea; color: #137333; }
+.status.error { display: block; background: #fce8e6; color: #c5221f; }
+.spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #1a73e8; border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 8px; vertical-align: middle; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.steps { text-align: left; margin-top: 32px; padding-top: 24px; border-top: 1px solid #eee; }
+.steps h3 { font-size: 0.85rem; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.steps ol { padding-left: 20px; color: #555; font-size: 0.85rem; line-height: 1.8; }
+.steps a { color: #4361ee; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Coulisse Heir Review Upload</h1>
+  <p class="subtitle">Upload Google Takeout ZIPs to import reviews (all 3 outlets)</p>
+
+  <div class="drop-zone" id="dropZone">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+    <p>Drop your Takeout ZIPs here</p>
+    <p class="hint">Select 1, 2, or all 3 outlet files at once</p>
+  </div>
+  <input type="file" id="fileInput" accept=".zip" multiple>
+
+  <div id="fileList" style="margin: 12px 0; font-size: 0.85rem; color: #666;"></div>
+  <div class="status" id="status"></div>
+
+  <div style="border-top: 1px solid #eee; margin-top: 24px; padding-top: 24px;">
+    <h3 style="font-size: 1rem; color: #333; margin-bottom: 12px;">Generate New Article Now</h3>
+    <p style="color: #666; font-size: 0.9rem; margin-bottom: 16px;">Don't want to wait for Monday? Generate a new blog post on demand.</p>
+    <button id="triggerBtn" onclick="triggerRun()" style="background: #4361ee; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 0.95rem;">Generate Article Now</button>
+    <div class="status" id="triggerStatus"></div>
+  </div>
+
+  <div class="steps">
+    <h3>How to upload reviews (3 outlets)</h3>
+    <ol>
+      <li>Log into each outlet's Google account</li>
+      <li>Go to <a href="https://takeout.google.com" target="_blank">takeout.google.com</a></li>
+      <li>Click "Deselect all", check only <strong>"Google Business Profile"</strong></li>
+      <li>Click "Next step" then "Create export"</li>
+      <li>Repeat for all 3 outlets (Jurong, Pasir Ris, Bishan)</li>
+      <li>Select all 3 ZIPs and drop them here at once</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const status = document.getElementById('status');
+
+const fileList = document.getElementById('fileList');
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener('change', () => { if (fileInput.files.length) handleFiles(fileInput.files); });
+
+async function handleFiles(files) {
+  const zips = Array.from(files).filter(f => f.name.endsWith('.zip'));
+  if (zips.length === 0) {
+    showStatus('error', 'Please upload ZIP files from Google Takeout.');
+    return;
+  }
+
+  fileList.innerHTML = zips.map(f => `<div>📦 ${f.name} (${(f.size/1024/1024).toFixed(1)} MB)</div>`).join('');
+  showStatus('loading', `<span class="spinner"></span>Uploading ${zips.length} file${zips.length > 1 ? 's' : ''}... processing reviews from all outlets...`);
+
+  let totalReviews = 0;
+  let totalNew = 0;
+  let errors = [];
+
+  for (let i = 0; i < zips.length; i++) {
+    showStatus('loading', `<span class="spinner"></span>Processing file ${i+1} of ${zips.length}: ${zips[i].name}...`);
+    const formData = new FormData();
+    formData.append('file', zips[i]);
+    try {
+      const res = await fetch('/api/upload', { method: 'POST', body: formData });
+      const data = await res.json();
+      if (data.success) {
+        totalReviews = data.reviews_count;
+        totalNew += data.new_count;
+      } else {
+        errors.push(`${zips[i].name}: ${data.error}`);
+      }
+    } catch (err) {
+      errors.push(`${zips[i].name}: Connection error`);
+    }
+  }
+
+  if (errors.length > 0 && totalNew === 0) {
+    showStatus('error', errors.join('<br>'));
+  } else if (errors.length > 0) {
+    showStatus('success', `Imported ${totalReviews} total reviews (${totalNew} new). Some files had issues:<br>${errors.join('<br>')}`);
+  } else {
+    showStatus('success', `Done! ${totalReviews} total reviews (${totalNew} new from ${zips.length} file${zips.length > 1 ? 's' : ''}). The SEO agent will use them in the next run.`);
+  }
+}
+
+function showStatus(type, html) {
+  status.className = 'status ' + type;
+  status.innerHTML = html;
+}
+
+async function triggerRun() {
+  const btn = document.getElementById('triggerBtn');
+  const ts = document.getElementById('triggerStatus');
+  btn.disabled = true;
+  btn.textContent = 'Triggering...';
+  ts.className = 'status loading';
+  ts.innerHTML = '<span class="spinner"></span>Triggering article generation...';
+  try {
+    const res = await fetch('/api/trigger', { method: 'POST' });
+    const data = await res.json();
+    if (data.success) {
+      ts.className = 'status success';
+      ts.innerHTML = 'Triggered! You\'ll receive an email with the article in ~5 minutes.';
+    } else {
+      ts.className = 'status error';
+      ts.innerHTML = data.error || 'Failed to trigger. Try again.';
+    }
+  } catch (err) {
+    ts.className = 'status error';
+    ts.innerHTML = 'Connection error. Try again.';
+  }
+  btn.disabled = false;
+  btn.textContent = 'Generate Article Now';
+}
+</script>
+</body>
+</html>

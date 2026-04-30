@@ -1,0 +1,79 @@
+[
+  {
+    "name": "Anti-Frizz Treatment",
+    "slug": "anti-frizz-treatment",
+    "description": "UPDATE: Describe your anti-frizz treatment — formula, duration of results, what hair types it suits.",
+    "price_from": 0,
+    "price_to": 0,
+    "currency": "SGD",
+    "duration_minutes": 120,
+    "popular": true,
+    "keywords": ["anti frizz treatment singapore", "frizz control treatment", "humidity proof hair"]
+  },
+  {
+    "name": "Keratin Treatment",
+    "slug": "keratin-treatment",
+    "description": "UPDATE: Describe your keratin treatment — benefits, how long it lasts.",
+    "price_from": 0,
+    "price_to": 0,
+    "currency": "SGD",
+    "duration_minutes": 150,
+    "popular": true,
+    "keywords": ["keratin treatment singapore", "keratin hair treatment price"]
+  },
+  {
+    "name": "Soft Rebonding",
+    "slug": "soft-rebonding",
+    "description": "Gentler alternative to traditional rebonding. Straightens hair while maintaining some natural volume and movement.",
+    "price_from": 0,
+    "price_to": 0,
+    "currency": "SGD",
+    "duration_minutes": 180,
+    "popular": true,
+    "keywords": ["soft rebonding singapore", "gentle rebonding"]
+  },
+  {
+    "name": "Digital Perm",
+    "slug": "digital-perm",
+    "description": "Creates natural-looking curls and waves using digital temperature control. Lasts 6-12 months.",
+    "price_from": 0,
+    "price_to": 0,
+    "currency": "SGD",
+    "duration_minutes": 180,
+    "popular": false,
+    "keywords": ["digital perm singapore", "korean perm singapore"]
+  },
+  {
+    "name": "Scalp Treatment",
+    "slug": "scalp-treatment",
+    "description": "Deep cleansing and nourishing scalp treatment targeting dandruff, hair loss, and oily scalp issues.",
+    "price_from": 0,
+    "price_to": 0,
+    "currency": "SGD",
+    "duration_minutes": 60,
+    "popular": false,
+    "keywords": ["scalp treatment singapore", "hair loss treatment salon"]
+  },
+  {
+    "name": "Hair Colour",
+    "slug": "hair-colour",
+    "description": "Professional hair colouring service including highlights, balayage, and full colour. Ammonia-free options available.",
+    "price_from": 0,
+    "price_to": 0,
+    "currency": "SGD",
+    "duration_minutes": 120,
+    "popular": false,
+    "keywords": ["hair colour singapore", "balayage singapore"]
+  },
+  {
+    "name": "Haircut",
+    "slug": "haircut",
+    "description": "Professional haircut with consultation. Includes wash and blow dry.",
+    "price_from": 0,
+    "price_to": 0,
+    "currency": "SGD",
+    "duration_minutes": 45,
+    "popular": false,
+    "keywords": ["haircut singapore"]
+  }
+]

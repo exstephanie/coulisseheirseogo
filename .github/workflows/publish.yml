@@ -1,0 +1,47 @@
+name: Publish Approved Post
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Write credentials
+        run: |
+          set -e
+          mkdir -p config
+          echo '${{ secrets.GSC_CREDENTIALS_JSON }}' > config/gsc_credentials.json
+      - uses: actions/cache@v4
+        with:
+          path: |
+            vault/
+            docs/
+          key: vault-${{ github.run_number }}
+          restore-keys: vault-
+      - name: Publish pending post
+        env:
+          WP_URL: ${{ secrets.WP_URL }}
+          WP_USERNAME: ${{ secrets.WP_USERNAME }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          BRAND: coulissehair
+        run: python seo_agent.py --publish
+      - name: Commit vault updates
+        run: |
+          git config --global user.name "Coulisse Heir SEO Agent"
+          git config --global user.email "seo@coulisseheir.com"
+          git add vault/ docs/ || true
+          git diff --staged --quiet || git commit -m "agent: publish post $(date +'%Y-%m-%d') [automated]"
+          git push || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
