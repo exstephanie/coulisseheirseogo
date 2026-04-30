@@ -1,18 +1,26 @@
 [
   {
-    "question": "UPDATE THIS: Common question about your services",
-    "answer": "UPDATE THIS: Clear, honest answer in plain English."
+    "question": "What makes Coulisse Heir different from other hair salons?",
+    "answer": "Coulisse Heir is a hair and scalp treatment sanctuary, not a traditional salon. We combine advanced scalp science with emotional wellness — every visit is a bespoke ritual designed to restore balance and confidence, not just treat your hair. We're located at ION Orchard and focus exclusively on scalp health and restorative treatments."
   },
   {
-    "question": "UPDATE THIS: Question about pricing",
-    "answer": "UPDATE THIS: Transparent pricing answer mentioning price range."
+    "question": "What treatments do you offer and how much do they cost?",
+    "answer": "Our treatments range from $227 for an introductory Reset ritual (45 mins) to $697 for the comprehensive SHE Complete experience (100 mins). We also offer advanced exosome therapies (EXO series from $367), scalp rebalancing treatments (Restore collection from $227), and energising regrowth treatments (Energize collection from $337). All treatments are personalised to your scalp and hair condition."
   },
   {
-    "question": "UPDATE THIS: Question about suitability (e.g. coloured hair, damaged hair)",
-    "answer": "UPDATE THIS: Honest answer about who the service is suitable for."
+    "question": "Is Coulisse Heir suitable for hair loss and thinning hair?",
+    "answer": "Yes. Many of our clients come to us specifically for hair loss and thinning concerns. Our EXO Root and EXO Black treatments use advanced exosome therapy to strengthen hair roots and improve density. Our Energize collection (Envigorate, Endensify, Engenerate) targets scalp energy and follicle stimulation for regrowth support."
   },
   {
-    "question": "UPDATE THIS: Question about booking",
-    "answer": "UPDATE THIS: How customers can book — WhatsApp, call, online, walk-in policy."
+    "question": "Do I need to book an appointment?",
+    "answer": "Yes, we recommend booking in advance as appointments fill quickly. You can book via WhatsApp at +65 8438 0343 or contact us through our website. We are located at #04-02, ION Orchard, 2 Orchard Turn, Singapore 238801."
+  },
+  {
+    "question": "What are your opening hours?",
+    "answer": "We are open Monday to Friday 10:30am–8:00pm, and Saturday, Sunday and Public Holidays 10:30am–6:30pm. We are located at ION Orchard, steps from Orchard MRT."
+  },
+  {
+    "question": "Are your treatments suitable for sensitive scalps?",
+    "answer": "Yes. Our SHE Calm and ScalpEase treatments are specifically designed for sensitive, irritated, or reactive scalps. We customise every treatment after a thorough scalp assessment, so your experience is always tailored to your specific condition."
   }
 ]

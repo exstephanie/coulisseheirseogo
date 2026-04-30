@@ -1,79 +1,90 @@
 [
   {
-    "name": "Anti-Frizz Treatment",
-    "slug": "anti-frizz-treatment",
-    "description": "UPDATE: Describe your anti-frizz treatment — formula, duration of results, what hair types it suits.",
-    "price_from": 0,
-    "price_to": 0,
+    "name": "SHE Complete",
+    "slug": "she-complete",
+    "description": "Bespoke 100-minute ritual for women combining scalp wellness and advanced hair artistry. Our most comprehensive SHE Time experience for full restoration.",
+    "price_from": 497,
+    "price_to": 697,
     "currency": "SGD",
-    "duration_minutes": 120,
+    "duration_minutes": 100,
     "popular": true,
-    "keywords": ["anti frizz treatment singapore", "frizz control treatment", "humidity proof hair"]
+    "keywords": ["hair treatment singapore women", "bespoke hair treatment orchard", "luxury hair salon singapore"]
   },
   {
-    "name": "Keratin Treatment",
-    "slug": "keratin-treatment",
-    "description": "UPDATE: Describe your keratin treatment — benefits, how long it lasts.",
-    "price_from": 0,
-    "price_to": 0,
+    "name": "SHE Calm",
+    "slug": "she-calm",
+    "description": "A 90-minute personalised ritual designed to calm the scalp and restore balance. Ideal for stress-related hair concerns and sensitive scalps.",
+    "price_from": 397,
+    "price_to": 597,
     "currency": "SGD",
-    "duration_minutes": 150,
+    "duration_minutes": 90,
     "popular": true,
-    "keywords": ["keratin treatment singapore", "keratin hair treatment price"]
+    "keywords": ["scalp treatment for stress singapore", "calming hair treatment", "sensitive scalp treatment singapore"]
   },
   {
-    "name": "Soft Rebonding",
-    "slug": "soft-rebonding",
-    "description": "Gentler alternative to traditional rebonding. Straightens hair while maintaining some natural volume and movement.",
-    "price_from": 0,
-    "price_to": 0,
+    "name": "SHE Rise",
+    "slug": "she-rise",
+    "description": "A 60-minute restorative ritual for women seeking renewal and confidence. Blends scalp care with emotional wellness.",
+    "price_from": 297,
+    "price_to": 497,
     "currency": "SGD",
-    "duration_minutes": 180,
+    "duration_minutes": 60,
     "popular": true,
-    "keywords": ["soft rebonding singapore", "gentle rebonding"]
+    "keywords": ["hair wellness treatment singapore", "scalp ritual singapore", "ION orchard hair salon"]
   },
   {
-    "name": "Digital Perm",
-    "slug": "digital-perm",
-    "description": "Creates natural-looking curls and waves using digital temperature control. Lasts 6-12 months.",
-    "price_from": 0,
-    "price_to": 0,
+    "name": "EXO Glow",
+    "slug": "exo-glow",
+    "description": "90-minute advanced exosome therapy for luminous, healthy hair. Targets damaged and weakened hair at the cellular level for visible transformation.",
+    "price_from": 497,
+    "price_to": 497,
     "currency": "SGD",
-    "duration_minutes": 180,
+    "duration_minutes": 90,
+    "popular": true,
+    "keywords": ["exosome hair treatment singapore", "hair loss treatment singapore", "advanced scalp therapy"]
+  },
+  {
+    "name": "EXO Root",
+    "slug": "exo-root",
+    "description": "90-minute exosome treatment targeting hair root strengthening and density improvement. Ideal for thinning hair and hair loss.",
+    "price_from": 367,
+    "price_to": 367,
+    "currency": "SGD",
+    "duration_minutes": 90,
+    "popular": true,
+    "keywords": ["hair loss treatment singapore women", "thinning hair treatment", "scalp treatment for hair loss"]
+  },
+  {
+    "name": "ScalpEase",
+    "slug": "scalp-ease",
+    "description": "75-minute scalp rebalancing treatment for oily, irritated, or dandruff-prone scalps. Restores equilibrium and soothes discomfort.",
+    "price_from": 337,
+    "price_to": 337,
+    "currency": "SGD",
+    "duration_minutes": 75,
     "popular": false,
-    "keywords": ["digital perm singapore", "korean perm singapore"]
+    "keywords": ["dandruff treatment singapore", "oily scalp treatment", "scalp rebalancing singapore"]
   },
   {
-    "name": "Scalp Treatment",
-    "slug": "scalp-treatment",
-    "description": "Deep cleansing and nourishing scalp treatment targeting dandruff, hair loss, and oily scalp issues.",
-    "price_from": 0,
-    "price_to": 0,
+    "name": "Engenerate",
+    "slug": "engenerate",
+    "description": "90-minute energising scalp treatment to stimulate hair regrowth and improve density. Science-backed formula targeting dormant follicles.",
+    "price_from": 337,
+    "price_to": 337,
+    "currency": "SGD",
+    "duration_minutes": 90,
+    "popular": false,
+    "keywords": ["hair regrowth treatment singapore", "hair density treatment", "stimulate hair growth singapore"]
+  },
+  {
+    "name": "Reset Glow",
+    "slug": "reset-glow",
+    "description": "60-minute restorative ritual to reset and refresh the scalp. A perfect introduction to the Coulisse Heir experience.",
+    "price_from": 327,
+    "price_to": 327,
     "currency": "SGD",
     "duration_minutes": 60,
     "popular": false,
-    "keywords": ["scalp treatment singapore", "hair loss treatment salon"]
-  },
-  {
-    "name": "Hair Colour",
-    "slug": "hair-colour",
-    "description": "Professional hair colouring service including highlights, balayage, and full colour. Ammonia-free options available.",
-    "price_from": 0,
-    "price_to": 0,
-    "currency": "SGD",
-    "duration_minutes": 120,
-    "popular": false,
-    "keywords": ["hair colour singapore", "balayage singapore"]
-  },
-  {
-    "name": "Haircut",
-    "slug": "haircut",
-    "description": "Professional haircut with consultation. Includes wash and blow dry.",
-    "price_from": 0,
-    "price_to": 0,
-    "currency": "SGD",
-    "duration_minutes": 45,
-    "popular": false,
-    "keywords": ["haircut singapore"]
+    "keywords": ["scalp treatment singapore price", "hair salon ION orchard", "luxury scalp treatment"]
   }
 ]

@@ -1,30 +1,30 @@
 # Coulisse Heir Brand Voice
 
 ## Who We Are
-UPDATE THIS: Describe what Coulisse Heir does, who it serves, and what makes it different.
+Coulisse Heir is a luxury hair and scalp treatment salon at ION Orchard, Singapore. Founded by Nico Tan with co-creators Gina and KG, we believe beauty begins with balance. Our philosophy — "Stillness is the highest form of beauty" — shapes every treatment we offer. We unite advanced scalp science with emotional wellness, creating sanctuary-like experiences that restore confidence from the inside out.
 
 ## Tone
-- Friendly and approachable, like talking to a knowledgeable friend
-- Confident but not pushy. We know our stuff but we don't hard-sell
-- Practical and specific. Real prices, real results, real timelines
-- Singapore-local. We reference the humidity, the MRT, the heartlands
-- Never clinical or overly technical. Explain treatments in plain English
+- Refined and calm, like a trusted wellness confidante
+- Sophisticated but warm — never cold or clinical
+- Science-informed yet accessible — explain treatments as rituals, not procedures
+- Emotionally aware — acknowledge stress, fatigue, and the desire for renewal
+- Empowering — we help clients feel confident, balanced, and restored
 
 ## Key Messages
-UPDATE THESE with Coulisse Heir's specific value propositions:
-1. [Main differentiator]
-2. [Specialty service or expertise]
-3. [Location/convenience — number of outlets]
-4. [Social proof — e.g. Google reviews count]
-5. [Pricing philosophy]
+1. Beauty begins with scalp health — we treat the root cause, not just the surface
+2. Treatments are rituals, not appointments — a sanctuary experience every visit
+3. Advanced science meets emotional care — holistic, not just cosmetic
+4. One location, ION Orchard — Singapore's premier shopping and lifestyle destination
+5. Personalised for women — every treatment is bespoke to your hair and scalp condition
 
 ## Words We Use
-UPDATE THESE with Coulisse Heir's language:
-- [Positive descriptors of your services]
-- [How you reference customer results]
-- [Local references]
+- "ritual", "sanctuary", "restoration", "renewal", "balance"
+- "our clients experience...", "your scalp deserves..."
+- "stillness", "confidence", "holistic", "bespoke"
+- "science-backed", "advanced", "precise"
 
 ## Words We Avoid
-- "luxury", "premium", "exclusive" (keep it accessible)
-- "miracle", "instant", "guaranteed" (stay honest)
-- Overly technical jargon without explanation
+- "cheap", "affordable", "budget" (we are a premium experience)
+- "miracle", "instant fix", "guaranteed results" (we are honest about outcomes)
+- Cold clinical terms without emotional context
+- Generic beauty language — everything we say should feel intentional and specific

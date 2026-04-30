@@ -1,10 +1,16 @@
 [
   {
-    "name": "Coulisse Heir [Outlet Name]",
-    "outlet": "UPDATE THIS",
-    "address": "UPDATE THIS with full address",
-    "area_vibe": "UPDATE THIS with neighbourhood description",
+    "name": "Coulisse Heir ION Orchard",
+    "outlet": "ION Orchard",
+    "address": "#04-02, ION Orchard, 2 Orchard Turn, Singapore 238801",
+    "area_vibe": "Central Orchard, Singapore's premier luxury shopping belt. High footfall of professionals, tourists, and affluent shoppers. Steps from Orchard MRT.",
     "gbp_location_id_env": "GBP_LOCATION_ID_1",
-    "target_audience": "UPDATE THIS with typical customer profile"
+    "phone": "+65 8438 0343",
+    "whatsapp": "+65 8438 0343",
+    "hours": {
+      "weekdays": "10:30am–8:00pm",
+      "weekends_and_ph": "10:30am–6:30pm"
+    },
+    "target_audience": "Women seeking holistic scalp and hair wellness experiences; professionals dealing with stress-related hair loss or scalp issues; individuals wanting a premium, sanctuary-style treatment in a luxury setting"
   }
 ]

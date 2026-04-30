@@ -1,9 +1,23 @@
 [
   {
-    "name": "UPDATE THIS: Stylist Name",
-    "outlet": "UPDATE THIS: Outlet name",
-    "specialties": ["UPDATE THIS with specialties"],
-    "years_experience": 0,
-    "bio": "UPDATE THIS: Brief bio highlighting their expertise and style."
+    "name": "Nico Tan",
+    "outlet": "ION Orchard",
+    "specialties": ["scalp wellness", "hair loss treatment", "advanced exosome therapy", "bespoke hair rituals"],
+    "years_experience": 10,
+    "bio": "Nico is the founder of Coulisse Heir and the vision behind our sanctuary philosophy. With deep expertise in scalp science and holistic hair wellness, Nico leads the team in delivering transformative, science-backed treatments with emotional care at the core."
+  },
+  {
+    "name": "Gina",
+    "outlet": "ION Orchard",
+    "specialties": ["SHE Time rituals", "scalp rebalancing", "restorative treatments"],
+    "years_experience": 8,
+    "bio": "Gina is a co-creator of Coulisse Heir and a specialist in bespoke SHE Time rituals. She brings warmth and precision to every treatment, helping clients find stillness and renewal in every session."
+  },
+  {
+    "name": "KG",
+    "outlet": "ION Orchard",
+    "specialties": ["energise treatments", "hair regrowth", "scalp therapy"],
+    "years_experience": 8,
+    "bio": "KG is a co-creator of Coulisse Heir with a focus on energising and regrowth treatments. With a science-first approach, KG designs targeted protocols for clients dealing with thinning hair and scalp imbalances."
   }
 ]
