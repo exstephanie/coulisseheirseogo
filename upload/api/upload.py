@@ -17,7 +17,7 @@ from http.server import BaseHTTPRequestHandler
 
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
-GITHUB_REPO = os.environ.get("GITHUB_REPO", "danielncy/coulisseheirseogo").strip()
+GITHUB_REPO = os.environ.get("GITHUB_REPO", "exstephanie/coulisseheirseogo").strip()
 REVIEW_FILE_PATH = "vault/coulissehair/reviews_import.csv"
 
 RATING_MAP = {"ONE": 1, "TWO": 2, "THREE": 3, "FOUR": 4, "FIVE": 5}
