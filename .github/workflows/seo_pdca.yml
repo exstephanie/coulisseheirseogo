@@ -29,12 +29,15 @@ jobs:
           python-version: "3.11"
       - run: pip install -r requirements.txt
       - name: Write credentials
+        env:
+          GSC_CREDENTIALS_JSON: ${{ secrets.GSC_CREDENTIALS_JSON }}
+          GBP_TOKEN_JSON: ${{ secrets.GBP_TOKEN_JSON }}
         run: |
           set -e
           mkdir -p config
-          echo '${{ secrets.GSC_CREDENTIALS_JSON }}' > config/gsc_credentials.json
-          if [ -n '${{ secrets.GBP_TOKEN_JSON }}' ]; then
-            echo '${{ secrets.GBP_TOKEN_JSON }}' > config/gbp_token.json
+          printf '%s' "$GSC_CREDENTIALS_JSON" > config/gsc_credentials.json
+          if [ -n "$GBP_TOKEN_JSON" ]; then
+            printf '%s' "$GBP_TOKEN_JSON" > config/gbp_token.json
           fi
       - uses: actions/cache@v4
         with:

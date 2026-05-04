@@ -30,7 +30,8 @@ class ContentPlanner:
         clusters = self._load_json("review_clusters.json")
         services = self._load_json("services.json")
         brand_voice = self._load_text("brand_voice.md")
-        used_reviews = self._load_json("used_reviews.json") or {"used_ids": [], "used_clusters": []}
+        _raw = self._load_json("used_reviews.json") or {}
+        used_reviews = {"used_ids": [], "used_clusters": [], **_raw}
 
         # Build context for Claude
         quick_wins = self.gsc_data.get("quick_wins", [])[:10]
