@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Coulisse Heir - Upload Reviews</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
@@ -36,7 +37,7 @@ input[type="file"] { display: none; }
   <div class="drop-zone" id="dropZone">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
     <p>Drop your Takeout ZIP here</p>
-    <p class="hint">Select the ZIP file from your Google Takeout export</p>
+    <p class="hint">Any size — reviews are extracted in your browser before uploading</p>
   </div>
   <input type="file" id="fileInput" accept=".zip" multiple>
 
@@ -58,17 +59,20 @@ input[type="file"] { display: none; }
       <li>Click "Deselect all", check only <strong>"Google Business Profile"</strong></li>
       <li>Click "Next step" then "Create export"</li>
       <li>Wait for the email from Google, download the ZIP</li>
-      <li>Drop the ZIP here</li>
+      <li>Drop the ZIP here (any file size works)</li>
     </ol>
   </div>
 </div>
 
 <script>
+const RATING_MAP = { ONE: 1, TWO: 2, THREE: 3, FOUR: 4, FIVE: 5 };
+const BRAND_FILTER = "coulisse";
+
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const status = document.getElementById('status');
-
 const fileList = document.getElementById('fileList');
+
 dropZone.addEventListener('click', () => fileInput.click());
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
@@ -79,44 +83,99 @@ dropZone.addEventListener('drop', e => {
 });
 fileInput.addEventListener('change', () => { if (fileInput.files.length) handleFiles(fileInput.files); });
 
-async function handleFiles(files) {
-  const zips = Array.from(files).filter(f => f.name.endsWith('.zip'));
-  if (zips.length === 0) {
-    showStatus('error', 'Please upload ZIP files from Google Takeout.');
-    return;
+async function extractReviewsFromZip(file) {
+  showStatus('loading', `<span class="spinner"></span>Reading ${file.name} (${(file.size/1024/1024).toFixed(1)} MB) — extracting reviews in browser...`);
+  const zip = await JSZip.loadAsync(file);
+  const reviews = [];
+  const seen = new Set();
+
+  const reviewFiles = Object.keys(zip.files).filter(name =>
+    name.toLowerCase().includes('reviews') &&
+    name.endsWith('.json') &&
+    name.toLowerCase().includes(BRAND_FILTER)
+  );
+
+  if (reviewFiles.length === 0) {
+    // Try without brand filter as fallback
+    const allReviewFiles = Object.keys(zip.files).filter(name =>
+      name.toLowerCase().includes('reviews') && name.endsWith('.json')
+    );
+    if (allReviewFiles.length === 0) throw new Error('No review files found. Make sure you exported Google Business Profile data.');
+    reviewFiles.push(...allReviewFiles);
   }
 
-  fileList.innerHTML = zips.map(f => `<div>📦 ${f.name} (${(f.size/1024/1024).toFixed(1)} MB)</div>`).join('');
-  showStatus('loading', `<span class="spinner"></span>Uploading ${zips.length} file${zips.length > 1 ? 's' : ''}... processing reviews from all outlets...`);
-
-  let totalReviews = 0;
-  let totalNew = 0;
-  let errors = [];
-
-  for (let i = 0; i < zips.length; i++) {
-    showStatus('loading', `<span class="spinner"></span>Processing file ${i+1} of ${zips.length}: ${zips[i].name}...`);
-    const formData = new FormData();
-    formData.append('file', zips[i]);
+  for (const name of reviewFiles) {
     try {
-      const res = await fetch('/api/upload', { method: 'POST', body: formData });
-      const data = await res.json();
-      if (data.success) {
-        totalReviews = data.reviews_count;
-        totalNew += data.new_count;
-      } else {
-        errors.push(`${zips[i].name}: ${data.error}`);
+      const text = await zip.files[name].async('string');
+      const data = JSON.parse(text);
+      const items = Array.isArray(data) ? data : (data.reviews || []);
+      for (const r of items) {
+        const rid = (r.name || '').split('/').pop();
+        const comment = (r.comment || '').trim();
+        if (!rid || seen.has(rid) || !comment) continue;
+        seen.add(rid);
+        reviews.push({
+          review_id: rid,
+          reviewer: r.reviewer?.displayName || 'Anonymous',
+          rating: RATING_MAP[r.starRating] || 5,
+          text: comment,
+          date: (r.createTime || '').slice(0, 10),
+        });
       }
-    } catch (err) {
-      errors.push(`${zips[i].name}: Connection error`);
+    } catch(e) { console.warn('Skipped', name, e); }
+  }
+
+  reviews.sort((a, b) => b.date.localeCompare(a.date));
+  return reviews;
+}
+
+function reviewsToCsv(reviews) {
+  const header = 'review_id,reviewer,rating,text,date\n';
+  const rows = reviews.map(r =>
+    [r.review_id, `"${r.reviewer.replace(/"/g,'""')}"`, r.rating, `"${r.text.replace(/"/g,'""')}"`, r.date].join(',')
+  );
+  return header + rows.join('\n');
+}
+
+async function handleFiles(files) {
+  const zips = Array.from(files).filter(f => f.name.endsWith('.zip'));
+  if (zips.length === 0) { showStatus('error', 'Please upload a ZIP file from Google Takeout.'); return; }
+
+  fileList.innerHTML = zips.map(f => `<div>📦 ${f.name} (${(f.size/1024/1024).toFixed(1)} MB)</div>`).join('');
+
+  let allReviews = [];
+  for (const zip of zips) {
+    try {
+      const reviews = await extractReviewsFromZip(zip);
+      allReviews.push(...reviews);
+    } catch(e) {
+      showStatus('error', e.message);
+      return;
     }
   }
 
-  if (errors.length > 0 && totalNew === 0) {
-    showStatus('error', errors.join('<br>'));
-  } else if (errors.length > 0) {
-    showStatus('success', `Imported ${totalReviews} total reviews (${totalNew} new). Some files had issues:<br>${errors.join('<br>')}`);
-  } else {
-    showStatus('success', `Done! ${totalReviews} total reviews (${totalNew} new from ${zips.length} file${zips.length > 1 ? 's' : ''}). The SEO agent will use them in the next run.`);
+  if (allReviews.length === 0) {
+    showStatus('error', 'No Coulisse Heir reviews found in the ZIP.');
+    return;
+  }
+
+  showStatus('loading', `<span class="spinner"></span>Found ${allReviews.length} reviews — saving to GitHub...`);
+
+  const csv = reviewsToCsv(allReviews);
+  try {
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ csv }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      showStatus('success', `Done! ${data.reviews_count} total reviews (${data.new_count} new) saved. The agent will use them in the next run.`);
+    } else {
+      showStatus('error', data.error || 'Upload failed.');
+    }
+  } catch(e) {
+    showStatus('error', 'Connection error. Try again.');
   }
 }
 
@@ -142,7 +201,7 @@ async function triggerRun() {
       ts.className = 'status error';
       ts.innerHTML = data.error || 'Failed to trigger. Try again.';
     }
-  } catch (err) {
+  } catch(err) {
     ts.className = 'status error';
     ts.innerHTML = 'Connection error. Try again.';
   }

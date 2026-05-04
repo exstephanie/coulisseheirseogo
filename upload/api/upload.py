@@ -116,81 +116,51 @@ def commit_reviews(csv_content: str, message: str) -> dict:
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
-            # Parse multipart form data
             content_type = self.headers.get("Content-Type", "")
-            if "multipart/form-data" not in content_type:
-                self._respond(400, {"success": False, "error": "Expected multipart/form-data"})
-                return
-
-            # Read the body
             content_length = int(self.headers.get("Content-Length", 0))
             body = self.rfile.read(content_length)
 
-            # Extract the file from multipart data
-            boundary = content_type.split("boundary=")[1].encode()
-            parts = body.split(b"--" + boundary)
-            zip_bytes = None
-            for part in parts:
-                if b"filename=" in part and b".zip" in part:
-                    # Find the start of file data (after double newline)
-                    header_end = part.find(b"\r\n\r\n")
-                    if header_end != -1:
-                        zip_bytes = part[header_end + 4:]
-                        # Remove trailing \r\n
-                        if zip_bytes.endswith(b"\r\n"):
-                            zip_bytes = zip_bytes[:-2]
-                    break
+            # Accept pre-parsed CSV sent as JSON from the browser (new flow)
+            if "application/json" in content_type:
+                payload = json.loads(body.decode("utf-8"))
+                incoming_csv = payload.get("csv", "")
+                if not incoming_csv:
+                    self._respond(400, {"success": False, "error": "No CSV data received"})
+                    return
 
-            if not zip_bytes:
-                self._respond(400, {"success": False, "error": "No ZIP file found in upload"})
-                return
+                reader = csv.DictReader(io.StringIO(incoming_csv))
+                new_reviews = list(reader)
+                if not new_reviews:
+                    self._respond(200, {"success": False, "error": "No reviews found in the data."})
+                    return
 
-            # Parse reviews from ZIP
-            new_reviews = parse_reviews_from_zip(zip_bytes)
-            if not new_reviews:
-                self._respond(200, {"success": False, "error": "No reviews found in the ZIP. Make sure you exported Google Business Profile data."})
-                return
+                existing_ids = get_existing_review_ids()
+                unique_reviews = [r for r in new_reviews if r.get("review_id") not in existing_ids]
 
-            # Check for duplicates against existing reviews
-            existing_ids = get_existing_review_ids()
-            unique_reviews = [r for r in new_reviews if r["review_id"] not in existing_ids]
-
-            # Merge: keep existing + add new
-            if existing_ids and unique_reviews:
-                # Fetch existing CSV, parse, merge
-                try:
-                    data = github_api("GET", f"contents/{REVIEW_FILE_PATH}")
-                    existing_csv = base64.b64decode(data["content"]).decode("utf-8")
-                    reader = csv.DictReader(io.StringIO(existing_csv))
-                    all_reviews = list(reader) + unique_reviews
-                except HTTPError:
+                if existing_ids and unique_reviews:
+                    try:
+                        data = github_api("GET", f"contents/{REVIEW_FILE_PATH}")
+                        existing_csv = base64.b64decode(data["content"]).decode("utf-8")
+                        existing_rows = list(csv.DictReader(io.StringIO(existing_csv)))
+                        all_reviews = existing_rows + unique_reviews
+                    except HTTPError:
+                        all_reviews = new_reviews
+                else:
                     all_reviews = new_reviews
-            elif not existing_ids:
-                all_reviews = new_reviews
-                unique_reviews = new_reviews
-            else:
-                all_reviews = new_reviews  # All duplicates, but overwrite with fresh data
-                unique_reviews = []
+                    unique_reviews = new_reviews if not existing_ids else unique_reviews
 
-            # Convert to CSV and commit
-            csv_content = reviews_to_csv(all_reviews)
-            message = f"data: import {len(unique_reviews)} new reviews ({len(all_reviews)} total) [via upload]"
-            commit_reviews(csv_content, message)
+                csv_content = reviews_to_csv(all_reviews)
+                message = f"data: import {len(unique_reviews)} new reviews ({len(all_reviews)} total) [via upload]"
+                commit_reviews(csv_content, message)
 
-            self._respond(200, {
-                "success": True,
-                "reviews_count": len(all_reviews),
-                "new_count": len(unique_reviews),
-                "duplicates_skipped": len(new_reviews) - len(unique_reviews),
-            })
+                self._respond(200, {
+                    "success": True,
+                    "reviews_count": len(all_reviews),
+                    "new_count": len(unique_reviews),
+                })
+                return
 
-        except zipfile.BadZipFile:
-            self._respond(400, {"success": False, "error": "Invalid ZIP file. Please upload the file from Google Takeout."})
-        except HTTPError as e:
-            error_body = e.read().decode("utf-8", errors="replace")[:200]
-            self._respond(500, {"success": False, "error": f"GitHub API error: {e.code} - {error_body}"})
-        except Exception as e:
-            self._respond(500, {"success": False, "error": f"Server error: {str(e)}"})
+            self._respond(400, {"success": False, "error": "Expected application/json"}))
 
     def _respond(self, code: int, data: dict):
         self.send_response(code)
