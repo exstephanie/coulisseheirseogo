@@ -39,8 +39,13 @@ class ContentPlanner:
         recent_clusters = used_reviews.get("used_clusters", [])[-3:]
         cluster_summary = self._summarize_clusters(clusters, exclude=recent_clusters)
 
-        if not cluster_summary and not quick_wins:
-            logger.warning("No review clusters or GSC data — using fallback topic")
+        # Extract approved keywords from services vault
+        approved_keywords = []
+        for s in services:
+            approved_keywords.extend(s.get("keywords", []))
+
+        if not quick_wins and not approved_keywords:
+            logger.warning("No GSC data or service keywords — using fallback topic")
             return self._fallback_plan(services)
 
         prompt = f"""You are an SEO content planner for Coulisse Heir, a luxury scalp wellness sanctuary in Singapore.
@@ -50,12 +55,16 @@ BRAND VOICE (read carefully — this defines what topics are and are NOT allowed
 
 STRICT CONTENT RULES:
 - NEVER write about anti-frizz, frizz control, humidity, or hair smoothing — that is a competitor brand
+- NEVER use "hair rescue" as a topic — that is not a Coulisse Heir service
 - NEVER suggest haircuts, colouring, rebonding, or keratin straightening
 - ALWAYS focus on: scalp wellness, scalp reset, self-care rituals, stress and hair, private pods, restoration
 - Target audience: women seeking luxury scalp wellness experiences, not quick fixes
 
 GSC QUICK-WIN KEYWORDS (positions 5-30, worth targeting):
-{json.dumps(quick_wins[:8], indent=2)}
+{json.dumps(quick_wins[:8], indent=2) if quick_wins else "No GSC data yet — use APPROVED KEYWORDS below instead."}
+
+APPROVED TARGET KEYWORDS (you MUST pick target_keyword from this list if no GSC data):
+{json.dumps(approved_keywords[:15], indent=2)}
 
 REVIEW CLUSTERS (topics customers talk about, with review count):
 {cluster_summary}
@@ -69,7 +78,7 @@ RECENTLY COVERED (do NOT repeat these clusters):
 YOUR TASK:
 Pick ONE blog post topic that:
 1. Is on-brand for Coulisse Heir (scalp wellness, reset rituals, self-care, hair loss, private pods)
-2. Targets a keyword from GSC quick-wins if available, otherwise pick from the service keywords above
+2. target_keyword MUST come from GSC quick-wins if available, otherwise MUST come from the APPROVED KEYWORDS list
 3. Can naturally include real pricing and service details
 4. Would help a Singapore woman searching for scalp care or hair wellness solutions
 5. Is DIFFERENT from recently covered topics
