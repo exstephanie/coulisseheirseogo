@@ -46,6 +46,14 @@ jobs:
             docs/
           key: vault-${{ github.run_number }}
           restore-keys: vault-
+      - name: Restore reference vault files from git
+        run: |
+          git checkout HEAD -- \
+            vault/coulissehair/brand_voice.md \
+            vault/coulissehair/services.json \
+            vault/coulissehair/faqs.json \
+            vault/coulissehair/locations.json \
+            vault/coulissehair/stylists.json
       - name: Run Agent
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
