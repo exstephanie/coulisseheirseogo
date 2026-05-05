@@ -1,101 +1,90 @@
 [
   {
-    "name": "Reset 45",
-    "slug": "reset-45",
-    "description": "A 45-minute introductory scalp reset ritual. Designed for those stepping into Coulisse Heir for the first time — a quiet moment to cleanse, rebalance, and reset both scalp and mind. Performed in a private pod.",
-    "price_from": 227,
-    "price_to": 227,
-    "currency": "SGD",
-    "duration_minutes": 45,
-    "popular": true,
-    "keywords": ["scalp treatment singapore", "scalp reset singapore", "ION orchard scalp treatment"]
-  },
-  {
-    "name": "Reset Glow",
-    "slug": "reset-glow",
-    "description": "A 60-minute scalp restoration ritual that cleanses, rebalances, and restores radiance to the scalp. A gentle but effective reset for women who want to begin their scalp wellness journey.",
-    "price_from": 327,
-    "price_to": 327,
-    "currency": "SGD",
-    "duration_minutes": 60,
-    "popular": true,
-    "keywords": ["scalp treatment singapore price", "luxury scalp treatment singapore", "best scalp treatment ION orchard"]
-  },
-  {
-    "name": "SHE Calm",
-    "slug": "she-calm",
-    "description": "A 90-minute bespoke SHE Time ritual designed for women dealing with stress-related scalp concerns. Performed in a private pod, SHE Calm combines targeted scalp therapy with sensory wellness — soft lighting, aromatherapy, and uninterrupted stillness. A ritual that restores both scalp and spirit.",
-    "price_from": 397,
-    "price_to": 597,
-    "currency": "SGD",
-    "duration_minutes": 90,
-    "popular": true,
-    "keywords": ["scalp treatment for stress singapore", "luxury scalp treatment women", "SHE Time scalp ritual singapore"]
-  },
-  {
     "name": "SHE Complete",
     "slug": "she-complete",
-    "description": "Our most comprehensive SHE Time ritual — 100 minutes of full scalp and hair restoration in a private pod. Bespoke to your scalp's needs, SHE Complete is the ultimate investment in yourself. For women who are ready to fully reset, restore, and reconnect with their sense of calm.",
+    "description": "Bespoke 100-minute ritual for women combining scalp wellness and advanced hair artistry. Our most comprehensive SHE Time experience for full restoration.",
     "price_from": 497,
     "price_to": 697,
     "currency": "SGD",
     "duration_minutes": 100,
     "popular": true,
-    "keywords": ["luxury hair treatment singapore women", "bespoke scalp ritual singapore", "premium hair salon ION orchard"]
+    "keywords": ["hair treatment singapore women", "bespoke hair treatment orchard", "luxury hair salon singapore"]
   },
   {
-    "name": "ScalpTox",
-    "slug": "scalptox",
-    "description": "A 60-minute scalp detox and rebalancing ritual. Deeply purifies the scalp environment, removes buildup, and restores the natural balance disrupted by stress, product use, or environmental factors. A clean slate for your scalp.",
-    "price_from": 227,
-    "price_to": 227,
-    "currency": "SGD",
-    "duration_minutes": 60,
-    "popular": true,
-    "keywords": ["scalp detox singapore", "scalp rebalancing singapore", "oily scalp treatment singapore"]
-  },
-  {
-    "name": "ScalpEase",
-    "slug": "scalp-ease",
-    "description": "A 75-minute soothing ritual for sensitive, irritated, or reactive scalps. Gently restores equilibrium with calming actives — ideal for women whose scalp conditions are aggravated by stress, lifestyle, or environmental changes.",
-    "price_from": 337,
-    "price_to": 337,
-    "currency": "SGD",
-    "duration_minutes": 75,
-    "popular": false,
-    "keywords": ["sensitive scalp treatment singapore", "scalp soothing treatment", "itchy scalp treatment singapore"]
-  },
-  {
-    "name": "EXO Root",
-    "slug": "exo-root",
-    "description": "A 90-minute advanced exosome therapy ritual targeting hair root strengthening and density restoration. Science-backed cellular treatment for women experiencing thinning hair or early-stage hair loss. Performed with precision in a private, calm setting.",
-    "price_from": 367,
-    "price_to": 367,
+    "name": "SHE Calm",
+    "slug": "she-calm",
+    "description": "A 90-minute personalised ritual designed to calm the scalp and restore balance. Ideal for stress-related hair concerns and sensitive scalps.",
+    "price_from": 397,
+    "price_to": 597,
     "currency": "SGD",
     "duration_minutes": 90,
     "popular": true,
-    "keywords": ["hair loss treatment singapore women", "thinning hair treatment singapore", "exosome scalp treatment singapore"]
+    "keywords": ["scalp treatment for stress singapore", "calming hair treatment", "sensitive scalp treatment singapore"]
+  },
+  {
+    "name": "SHE Rise",
+    "slug": "she-rise",
+    "description": "A 60-minute restorative ritual for women seeking renewal and confidence. Blends scalp care with emotional wellness.",
+    "price_from": 297,
+    "price_to": 497,
+    "currency": "SGD",
+    "duration_minutes": 60,
+    "popular": true,
+    "keywords": ["hair wellness treatment singapore", "scalp ritual singapore", "ION orchard hair salon"]
   },
   {
     "name": "EXO Glow",
     "slug": "exo-glow",
-    "description": "A 90-minute premium exosome ritual for scalp vitality and luminous hair health. Targets cellular renewal at the follicle level, restoring the scalp's natural energy and the hair's inherent glow. The most transformative treatment in our Empower collection.",
+    "description": "90-minute advanced exosome therapy for luminous, healthy hair. Targets damaged and weakened hair at the cellular level for visible transformation.",
     "price_from": 497,
     "price_to": 497,
     "currency": "SGD",
     "duration_minutes": 90,
     "popular": true,
-    "keywords": ["exosome hair treatment singapore", "advanced scalp treatment singapore", "premium hair treatment ION orchard"]
+    "keywords": ["exosome hair treatment singapore", "hair loss treatment singapore", "advanced scalp therapy"]
+  },
+  {
+    "name": "EXO Root",
+    "slug": "exo-root",
+    "description": "90-minute exosome treatment targeting hair root strengthening and density improvement. Ideal for thinning hair and hair loss.",
+    "price_from": 367,
+    "price_to": 367,
+    "currency": "SGD",
+    "duration_minutes": 90,
+    "popular": true,
+    "keywords": ["hair loss treatment singapore women", "thinning hair treatment", "scalp treatment for hair loss"]
+  },
+  {
+    "name": "ScalpEase",
+    "slug": "scalp-ease",
+    "description": "75-minute scalp rebalancing treatment for oily, irritated, or dandruff-prone scalps. Restores equilibrium and soothes discomfort.",
+    "price_from": 337,
+    "price_to": 337,
+    "currency": "SGD",
+    "duration_minutes": 75,
+    "popular": false,
+    "keywords": ["dandruff treatment singapore", "oily scalp treatment", "scalp rebalancing singapore"]
   },
   {
     "name": "Engenerate",
     "slug": "engenerate",
-    "description": "A 90-minute energising scalp ritual designed to awaken dormant follicles and stimulate natural hair regrowth. Combines advanced scalp science with a deeply restorative experience — because rebuilding confidence begins from within.",
+    "description": "90-minute energising scalp treatment to stimulate hair regrowth and improve density. Science-backed formula targeting dormant follicles.",
     "price_from": 337,
     "price_to": 337,
     "currency": "SGD",
     "duration_minutes": 90,
     "popular": false,
-    "keywords": ["hair regrowth treatment singapore", "hair growth treatment women singapore", "scalp stimulation treatment"]
+    "keywords": ["hair regrowth treatment singapore", "hair density treatment", "stimulate hair growth singapore"]
+  },
+  {
+    "name": "Reset Glow",
+    "slug": "reset-glow",
+    "description": "60-minute restorative ritual to reset and refresh the scalp. A perfect introduction to the Coulisse Heir experience.",
+    "price_from": 327,
+    "price_to": 327,
+    "currency": "SGD",
+    "duration_minutes": 60,
+    "popular": false,
+    "keywords": ["scalp treatment singapore price", "hair salon ION orchard", "luxury scalp treatment"]
   }
 ]
