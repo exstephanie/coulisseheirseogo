@@ -43,10 +43,16 @@ class ContentPlanner:
             logger.warning("No review clusters or GSC data — using fallback topic")
             return self._fallback_plan(services)
 
-        prompt = f"""You are an SEO content planner for Coulisse Heir, a hair salon in Singapore.
+        prompt = f"""You are an SEO content planner for Coulisse Heir, a luxury scalp wellness sanctuary in Singapore.
 
-BRAND VOICE:
-{brand_voice[:500]}
+BRAND VOICE (read carefully — this defines what topics are and are NOT allowed):
+{brand_voice[:2000]}
+
+STRICT CONTENT RULES:
+- NEVER write about anti-frizz, frizz control, humidity, or hair smoothing — that is a competitor brand
+- NEVER suggest haircuts, colouring, rebonding, or keratin straightening
+- ALWAYS focus on: scalp wellness, scalp reset, self-care rituals, stress and hair, private pods, restoration
+- Target audience: women seeking luxury scalp wellness experiences, not quick fixes
 
 GSC QUICK-WIN KEYWORDS (positions 5-30, worth targeting):
 {json.dumps(quick_wins[:8], indent=2)}
@@ -62,18 +68,18 @@ RECENTLY COVERED (do NOT repeat these clusters):
 
 YOUR TASK:
 Pick ONE blog post topic that:
-1. Targets a keyword from the GSC quick-wins (or closely related)
-2. Has matching customer reviews to quote (pick from the clusters)
+1. Is on-brand for Coulisse Heir (scalp wellness, reset rituals, self-care, hair loss, private pods)
+2. Targets a keyword from GSC quick-wins if available, otherwise pick from the service keywords above
 3. Can naturally include real pricing and service details
-4. Would help someone in Singapore searching for hair treatment solutions
-5. Is DIFFERENT from recently covered topics — pick a fresh angle and cluster
+4. Would help a Singapore woman searching for scalp care or hair wellness solutions
+5. Is DIFFERENT from recently covered topics
 
 Return a JSON object with:
 {{
-  "title": "Blog post title (include target keyword at the BEGINNING)",
-  "target_keyword": "max 4 words, e.g. 'keratin treatment singapore' NOT 'best keratin hair treatment in singapore'",
+  "title": "Blog post title (include target keyword near the BEGINNING)",
+  "target_keyword": "max 4 words, e.g. 'scalp treatment singapore' NOT 'best scalp treatment in singapore'",
   "cluster": "which review cluster to pull quotes from",
-  "angle": "what makes this post unique (the real customer data angle)",
+  "angle": "what makes this post unique",
   "reviews_to_include": 3,
   "services_to_mention": ["service names to reference with real pricing"],
   "outline": ["H2 heading 1", "H2 heading 2", "H2 heading 3", "H2 heading 4"],
@@ -178,21 +184,24 @@ Return ONLY the JSON object."""
 
     def _fallback_plan(self, services: list) -> dict:
         """Generate a basic plan when no review or GSC data is available."""
-        top_service = services[0] if services else {"name": "Anti-Frizz Treatment", "keywords": ["anti frizz treatment singapore"]}
+        top_service = services[0] if services else {
+            "name": "Scalp Treatment",
+            "keywords": ["scalp treatment singapore"],
+        }
         return {
-            "title": f"{top_service['name']} in Singapore: What Real Customers Say",
-            "target_keyword": top_service.get("keywords", ["hair treatment singapore"])[0],
-            "cluster": "anti-frizz-results",
-            "angle": "Service overview with pricing and customer perspective",
+            "title": f"Scalp Treatment Singapore: Why Self-Care Begins at the Scalp",
+            "target_keyword": top_service.get("keywords", ["scalp treatment singapore"])[0],
+            "cluster": "scalp-wellness",
+            "angle": "Scalp wellness as the foundation of beautiful hair — introducing the Coulisse Heir sanctuary experience",
             "reviews_to_include": 0,
             "services_to_mention": [top_service["name"]],
             "outline": [
-                f"What is {top_service['name']}?",
-                "How Much Does It Cost in Singapore?",
-                "What to Expect During Your Visit",
-                "Is It Worth It? Our Honest Take",
+                "Why Scalp Health Is the Foundation of Beautiful Hair",
+                "Signs Your Scalp Needs Professional Care",
+                "What to Expect from a Luxury Scalp Ritual",
+                "Experience Scalp Wellness at Coulisse Heir, ION Orchard",
             ],
-            "meta_description": f"{top_service['name']} at Coulisse Heir. Real prices, honest results. 3 convenient locations.",
+            "meta_description": f"Discover luxury scalp treatment in Singapore at Coulisse Heir. Private pods, bespoke rituals from $227. ION Orchard.",
             "review_quotes": [],
             "services_data": [top_service],
             "fallback": True,
