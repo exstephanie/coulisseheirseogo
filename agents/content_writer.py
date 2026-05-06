@@ -1,8 +1,8 @@
 """
 Content Writer Agent — Writes a blog post using real business data.
 
-Single Claude call that weaves real customer reviews, real pricing,
-and real stylist expertise into SEO-optimized content. Includes a
+Single Claude call that weaves real customer reviews and service details
+into SEO-optimized content. No pricing in articles. Includes a
 6-point quality gate with auto-fix loop (max 3 retries).
 """
 
@@ -102,9 +102,9 @@ class ContentWriter:
 
         service_block = ""
         if services:
-            service_block = "REAL PRICING TO INCLUDE:\n"
+            service_block = "SERVICES TO MENTION (by name only — do NOT include pricing):\n"
             for s in services:
-                service_block += f'- {s["name"]}: from ${s["price_from"]} to ${s["price_to"]} SGD ({s["duration_minutes"]} min)\n'
+                service_block += f'- {s["name"]}: {s["description"][:80]}\n'
 
         fix_instructions = plan.get("_fix_instructions", "")
         fix_block = f"\nIMPORTANT FIX REQUIRED:\n{fix_instructions}\n" if fix_instructions else ""
@@ -137,8 +137,8 @@ AIOSEO OPTIMIZATION RULES (mandatory):
 3. Add at least 1 internal link: <a href="https://coulisseheir.com/services/">our services</a> or similar
 4. Add at least 1 external link to a credible source (e.g., hair care study, Singapore climate data)
 5. Quote at least 2 real customer reviews with attribution (use <blockquote>)
-6. Include at least 1 specific price mention from the pricing data above
-7. End with a clear call-to-action (book appointment, visit outlet)
+6. Do NOT include any pricing or dollar amounts — focus on the experience and outcome
+7. End with a clear call-to-action (book appointment, visit outlet, WhatsApp)
 
 READABILITY RULES (mandatory for AIOSEO score):
 8. Keep paragraphs SHORT: under 120 words each. Many should be 2-3 sentences.
@@ -226,9 +226,9 @@ Return ONLY the HTML content, no markdown, no code fences."""
             if blockquote_count < min_quotes:
                 failures.append(f"Only {blockquote_count}/{min_quotes} review quotes")
 
-        # Pricing mention
-        if "$" not in html and "SGD" not in html:
-            failures.append("No pricing mentioned")
+        # Pricing must NOT appear
+        if "$" in html or "SGD" in html:
+            failures.append("Pricing found in article — remove all dollar amounts and SGD references")
 
         # CTA present
         cta_signals = ["book", "appointment", "visit", "call", "whatsapp", "contact"]

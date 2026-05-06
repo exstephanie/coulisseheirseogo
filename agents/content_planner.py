@@ -33,20 +33,27 @@ class ContentPlanner:
         _raw = self._load_json("used_reviews.json") or {}
         used_reviews = {"used_ids": [], "used_clusters": [], **_raw}
 
+        # Load pre-approved topics list
+        topics_data = self._load_json("content_topics.json") or {}
+        all_topics = topics_data.get("topics", [])
+        available_topics = [t for t in all_topics if not t.get("used", False)]
+
         # Build context for Claude
         quick_wins = self.gsc_data.get("quick_wins", [])[:10]
-        # Filter out recently used clusters (last 3 articles)
         recent_clusters = used_reviews.get("used_clusters", [])[-3:]
         cluster_summary = self._summarize_clusters(clusters, exclude=recent_clusters)
 
-        # Extract approved keywords from services vault
-        approved_keywords = []
-        for s in services:
-            approved_keywords.extend(s.get("keywords", []))
-
-        if not quick_wins and not approved_keywords:
-            logger.warning("No GSC data or service keywords — using fallback topic")
+        if not available_topics and not quick_wins:
+            logger.warning("No topics available and no GSC data — using fallback topic")
             return self._fallback_plan(services)
+
+        # Build topics block for prompt
+        if available_topics:
+            topics_block = "AVAILABLE ARTICLE TOPICS (you MUST pick one from this list):\n"
+            for t in available_topics:
+                topics_block += f'- id: "{t["id"]}" | title: "{t["title"]}" | keyword: "{t["target_keyword"]}" | angle: {t["angle"]}\n'
+        else:
+            topics_block = "No pre-approved topics remaining — choose a new on-brand topic."
 
         prompt = f"""You are an SEO content planner for Coulisse Heir, a luxury scalp wellness sanctuary in Singapore.
 
@@ -57,40 +64,39 @@ STRICT CONTENT RULES:
 - NEVER write about anti-frizz, frizz control, humidity, or hair smoothing — that is a competitor brand
 - NEVER use "hair rescue" as a topic — that is not a Coulisse Heir service
 - NEVER suggest haircuts, colouring, rebonding, or keratin straightening
+- NEVER include specific pricing or dollar amounts in the article
 - ALWAYS focus on: scalp wellness, scalp reset, self-care rituals, stress and hair, private pods, restoration
 - Target audience: women seeking luxury scalp wellness experiences, not quick fixes
 
-GSC QUICK-WIN KEYWORDS (positions 5-30, worth targeting):
-{json.dumps(quick_wins[:8], indent=2) if quick_wins else "No GSC data yet — use APPROVED KEYWORDS below instead."}
+{topics_block}
 
-APPROVED TARGET KEYWORDS (you MUST pick target_keyword from this list if no GSC data):
-{json.dumps(approved_keywords[:15], indent=2)}
+GSC QUICK-WIN KEYWORDS (use these to inform which topic will rank best):
+{json.dumps(quick_wins[:8], indent=2) if quick_wins else "No GSC data yet."}
 
 REVIEW CLUSTERS (topics customers talk about, with review count):
 {cluster_summary}
 
-SERVICES OFFERED:
+SERVICES OFFERED (mention by name only — no pricing):
 {self._format_services(services)}
 
 RECENTLY COVERED (do NOT repeat these clusters):
 {', '.join(recent_clusters) if recent_clusters else 'None yet — this is the first article.'}
 
 YOUR TASK:
-Pick ONE blog post topic that:
-1. Is on-brand for Coulisse Heir (scalp wellness, reset rituals, self-care, hair loss, private pods)
-2. target_keyword MUST come from GSC quick-wins if available, otherwise MUST come from the APPROVED KEYWORDS list
-3. Can naturally include real pricing and service details
-4. Would help a Singapore woman searching for scalp care or hair wellness solutions
-5. Is DIFFERENT from recently covered topics
+Pick ONE topic from AVAILABLE ARTICLE TOPICS above that:
+1. Best matches current GSC opportunities (if data exists) or will help a Singapore woman find Coulisse Heir
+2. Is DIFFERENT from recently covered clusters
+3. Aligns with the brand voice and content pillars
 
 Return a JSON object with:
 {{
-  "title": "Blog post title (include target keyword near the BEGINNING)",
-  "target_keyword": "max 4 words, e.g. 'scalp treatment singapore' NOT 'best scalp treatment in singapore'",
+  "topic_id": "the id field from the chosen topic",
+  "title": "Blog post title (use or refine the topic's title)",
+  "target_keyword": "use the exact target_keyword from the chosen topic",
   "cluster": "which review cluster to pull quotes from",
   "angle": "what makes this post unique",
   "reviews_to_include": 3,
-  "services_to_mention": ["service names to reference with real pricing"],
+  "services_to_mention": ["service names to reference — NO pricing"],
   "outline": ["H2 heading 1", "H2 heading 2", "H2 heading 3", "H2 heading 4"],
   "meta_description": "120-160 chars, MUST contain the exact target_keyword"
 }}
@@ -117,6 +123,15 @@ Return ONLY the JSON object."""
                 if s["name"] in plan.get("services_to_mention", [])
             ]
 
+            # Mark topic as used in content_topics.json
+            chosen_id = plan.get("topic_id", "")
+            if chosen_id and all_topics:
+                for t in all_topics:
+                    if t["id"] == chosen_id:
+                        t["used"] = True
+                        break
+                self._save_json("content_topics.json", {"topics": all_topics})
+
             # Track what we used so next article is different
             new_used_ids = [r.get("review_id", "") for r in plan["review_quotes"] if r.get("review_id")]
             used_reviews["used_ids"].extend(new_used_ids)
@@ -126,7 +141,7 @@ Return ONLY the JSON object."""
             used_reviews["used_clusters"] = used_reviews["used_clusters"][-10:]
             self._save_json("used_reviews.json", used_reviews)
 
-            logger.info(f"Topic selected: {plan.get('title', 'Unknown')}")
+            logger.info(f"Topic selected: {plan.get('title', 'Unknown')} (id: {chosen_id})")
             return plan
 
         except json.JSONDecodeError as e:
@@ -210,7 +225,7 @@ Return ONLY the JSON object."""
                 "What to Expect from a Luxury Scalp Ritual",
                 "Experience Scalp Wellness at Coulisse Heir, ION Orchard",
             ],
-            "meta_description": f"Discover luxury scalp treatment in Singapore at Coulisse Heir. Private pods, bespoke rituals from $227. ION Orchard.",
+            "meta_description": f"Discover luxury scalp treatment in Singapore at Coulisse Heir. Private pods, bespoke scalp restoration rituals at ION Orchard.",
             "review_quotes": [],
             "services_data": [top_service],
             "fallback": True,
