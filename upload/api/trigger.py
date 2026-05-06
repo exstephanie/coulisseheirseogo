@@ -12,7 +12,7 @@ from http.server import BaseHTTPRequestHandler
 
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
-GITHUB_REPO = os.environ.get("GITHUB_REPO", "danielncy/coulisseheirseogo").strip()
+GITHUB_REPO = os.environ.get("GITHUB_REPO", "").strip()
 
 
 class handler(BaseHTTPRequestHandler):

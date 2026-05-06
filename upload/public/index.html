@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Coulisse Heir - Upload Reviews</title>
+<title>Review Upload</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,8 +31,8 @@ input[type="file"] { display: none; }
 </head>
 <body>
 <div class="card">
-  <h1>Coulisse Heir Review Upload</h1>
-  <p class="subtitle">Upload Google Takeout ZIP to import reviews (ION Orchard)</p>
+  <h1 id="pageTitle">Review Upload</h1>
+  <p class="subtitle" id="pageSubtitle">Upload Google Takeout ZIP to import reviews</p>
 
   <div class="drop-zone" id="dropZone">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
@@ -46,7 +46,7 @@ input[type="file"] { display: none; }
 
   <div style="border-top: 1px solid #eee; margin-top: 24px; padding-top: 24px;">
     <h3 style="font-size: 1rem; color: #333; margin-bottom: 12px;">Generate New Article Now</h3>
-    <p style="color: #666; font-size: 0.9rem; margin-bottom: 16px;">Don't want to wait for Monday? Generate a new blog post on demand.</p>
+    <p style="color: #666; font-size: 0.9rem; margin-bottom: 16px;">Don't want to wait for the scheduled run? Generate a new blog post on demand.</p>
     <button id="triggerBtn" onclick="triggerRun()" style="background: #4361ee; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 0.95rem;">Generate Article Now</button>
     <div class="status" id="triggerStatus"></div>
   </div>
@@ -54,7 +54,7 @@ input[type="file"] { display: none; }
   <div class="steps">
     <h3>How to upload reviews</h3>
     <ol>
-      <li>Log into the Coulisse Heir Google account (ION Orchard)</li>
+      <li id="step1">Log into the brand's Google account</li>
       <li>Go to <a href="https://takeout.google.com" target="_blank">takeout.google.com</a></li>
       <li>Click "Deselect all", check only <strong>"Google Business Profile"</strong></li>
       <li>Click "Next step" then "Create export"</li>
@@ -66,7 +66,26 @@ input[type="file"] { display: none; }
 
 <script>
 const RATING_MAP = { ONE: 1, TWO: 2, THREE: 3, FOUR: 4, FIVE: 5 };
-const BRAND_FILTER = "coulisse";
+let BRAND_FILTER = "";
+let BRAND_NAME = "Brand";
+
+async function loadConfig() {
+  try {
+    const res = await fetch('/api/config');
+    const cfg = await res.json();
+    BRAND_NAME = cfg.brand_name || "Brand";
+    BRAND_FILTER = (cfg.brand_filter || "").toLowerCase();
+    const location = cfg.brand_location ? ` (${cfg.brand_location})` : "";
+    document.title = `${BRAND_NAME} — Review Upload`;
+    document.getElementById('pageTitle').textContent = `${BRAND_NAME} Review Upload`;
+    document.getElementById('pageSubtitle').textContent = `Upload Google Takeout ZIP to import reviews${location}`;
+    if (location) {
+      document.getElementById('step1').textContent = `Log into the ${BRAND_NAME} Google account${location}`;
+    }
+  } catch(e) {
+    console.warn('Config load failed, using defaults', e);
+  }
+}
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -89,19 +108,17 @@ async function extractReviewsFromZip(file) {
   const reviews = [];
   const seen = new Set();
 
-  const reviewFiles = Object.keys(zip.files).filter(name =>
+  let reviewFiles = Object.keys(zip.files).filter(name =>
     name.toLowerCase().includes('reviews') &&
     name.endsWith('.json') &&
-    name.toLowerCase().includes(BRAND_FILTER)
+    (BRAND_FILTER === "" || name.toLowerCase().includes(BRAND_FILTER))
   );
 
   if (reviewFiles.length === 0) {
-    // Try without brand filter as fallback
-    const allReviewFiles = Object.keys(zip.files).filter(name =>
+    reviewFiles = Object.keys(zip.files).filter(name =>
       name.toLowerCase().includes('reviews') && name.endsWith('.json')
     );
-    if (allReviewFiles.length === 0) throw new Error('No review files found. Make sure you exported Google Business Profile data.');
-    reviewFiles.push(...allReviewFiles);
+    if (reviewFiles.length === 0) throw new Error('No review files found. Make sure you exported Google Business Profile data.');
   }
 
   for (const name of reviewFiles) {
@@ -155,7 +172,7 @@ async function handleFiles(files) {
   }
 
   if (allReviews.length === 0) {
-    showStatus('error', 'No Coulisse Heir reviews found in the ZIP.');
+    showStatus('error', `No ${BRAND_NAME} reviews found in the ZIP. Make sure you selected Google Business Profile in Takeout.`);
     return;
   }
 
@@ -208,6 +225,8 @@ async function triggerRun() {
   btn.disabled = false;
   btn.textContent = 'Generate Article Now';
 }
+
+loadConfig();
 </script>
 </body>
 </html>

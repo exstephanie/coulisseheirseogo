@@ -12,7 +12,7 @@ from http.server import BaseHTTPRequestHandler
 
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
-GITHUB_REPO = os.environ.get("GITHUB_REPO", "danielncy/coulisseheirseogo").strip()
+GITHUB_REPO = os.environ.get("GITHUB_REPO", "").strip()
 
 HTML_SUCCESS = """<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -42,7 +42,7 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         """One-click publish from email link."""
         if not GITHUB_TOKEN:
-            self._html(500, HTML_ERROR.replace("ERROR_MSG", "Server not configured. Contact Daniel."))
+            self._html(500, HTML_ERROR.replace("ERROR_MSG", "Server not configured. Check Vercel environment variables."))
             return
 
         try:

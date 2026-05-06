@@ -2,7 +2,8 @@
   "buildCommand": "",
   "outputDirectory": "public",
   "rewrites": [
-    { "source": "/api/upload", "destination": "/api/upload.py" },
+    { "source": "/api/config",  "destination": "/api/config.py"  },
+    { "source": "/api/upload",  "destination": "/api/upload.py"  },
     { "source": "/api/trigger", "destination": "/api/trigger.py" },
     { "source": "/api/publish", "destination": "/api/publish.py" }
   ]
