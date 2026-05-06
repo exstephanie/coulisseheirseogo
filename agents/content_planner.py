@@ -71,13 +71,10 @@ BRAND VOICE (read carefully — this defines what topics are and are NOT allowed
 STRICT CONTENT RULES:
 - NEVER write about anti-frizz, frizz control, humidity, or hair smoothing — that is a competitor brand
 - NEVER use "hair rescue" as a topic — that is not a Coulisse Heir service
-- NEVER suggest rebonding or keratin straightening — those are not offered at Coulisse Heir
+- NEVER suggest haircuts, hair colour, hair dye, blowouts, rebonding, or keratin straightening — Coulisse Heir is scalp wellness only, not a hair salon
 - NEVER include specific pricing or dollar amounts in the article
 - ALWAYS focus on: scalp wellness, scalp reset, self-care rituals, stress and hair, private pods, restoration
-- Coulisse Heir now offers nano collagen hair dye and professional haircuts as add-on services to the scalp wellness experience
-- Nano collagen hair dye is a premium colour treatment that nourishes the hair while colouring — it is gentler on the scalp than conventional dye
-- Haircuts and nano collagen colour are available as standalone services or as add-ons after a scalp ritual
-- Target audience: women seeking luxury scalp wellness and complete hair transformation experiences
+- Target audience: women seeking luxury scalp wellness rituals in Singapore
 
 {topics_block}
 
