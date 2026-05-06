@@ -52,7 +52,7 @@
     "currency": "SGD",
     "duration_minutes": 60,
     "popular": true,
-    "keywords": ["scalp detox singapore", "scalp rebalancing singapore", "oily scalp treatment singapore"]
+    "keywords": ["scalp detox singapore", "scalptox singapore", "oily scalp treatment singapore"]
   },
   {
     "name": "ScalpEase",
@@ -97,5 +97,27 @@
     "duration_minutes": 90,
     "popular": false,
     "keywords": ["hair regrowth treatment singapore", "hair growth treatment women singapore", "scalp stimulation treatment"]
+  },
+  {
+    "name": "Nano Collagen Hair Dye",
+    "slug": "nano-collagen-hair-dye",
+    "description": "A premium hair colour treatment using nano collagen technology that simultaneously dyes and deeply nourishes the hair. Unlike conventional dye, nano collagen penetrates the hair shaft to restore strength, softness, and shine while delivering rich, long-lasting colour. Duration varies by hair length. Available as a standalone service or as an add-on to any scalp wellness ritual.",
+    "price_from": 0,
+    "price_to": 0,
+    "currency": "SGD",
+    "duration_minutes": 0,
+    "popular": true,
+    "keywords": ["nano collagen hair dye singapore", "hair colour treatment singapore", "collagen hair dye ION orchard", "hair dye singapore"]
+  },
+  {
+    "name": "Haircut",
+    "slug": "haircut",
+    "description": "Professional haircut service performed by skilled stylists in the Coulisse Heir sanctuary. Available as a standalone service or as an add-on to your scalp wellness ritual — complete your transformation in one visit.",
+    "price_from": 0,
+    "price_to": 0,
+    "currency": "SGD",
+    "duration_minutes": 0,
+    "popular": true,
+    "keywords": ["haircut ION orchard singapore", "hair salon ION orchard", "haircut singapore women"]
   }
 ]

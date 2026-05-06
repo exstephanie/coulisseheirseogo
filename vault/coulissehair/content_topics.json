@@ -1,6 +1,33 @@
 {
   "topics": [
     {
+      "id": "nano-collagen-what-is-it",
+      "title": "What Is Nano Collagen Hair Dye and Why Is It Different from Regular Colour?",
+      "target_keyword": "nano collagen hair dye singapore",
+      "angle": "Explains nano collagen technology — how it colours and nourishes simultaneously, why it is gentler on the scalp than conventional dye, and who it is ideal for",
+      "pillar": "nano-collagen",
+      "priority": true,
+      "used": false
+    },
+    {
+      "id": "nano-collagen-scalp-safe",
+      "title": "Hair Colour That's Kind to Your Scalp: Why Nano Collagen Dye Is Different",
+      "target_keyword": "hair colour treatment singapore",
+      "angle": "Speaks to clients who love colour but worry about scalp sensitivity — bridges the scalp wellness and hair colour worlds naturally",
+      "pillar": "nano-collagen",
+      "priority": true,
+      "used": false
+    },
+    {
+      "id": "complete-transformation",
+      "title": "Scalp Reset, Haircut, and Colour: The Complete Coulisse Heir Experience",
+      "target_keyword": "hair salon ION orchard",
+      "angle": "Introduces the full-service offering — scalp wellness ritual followed by a cut and nano collagen colour, all in one private sanctuary visit at ION Orchard",
+      "pillar": "complete-transformation",
+      "priority": true,
+      "used": false
+    },
+    {
       "id": "reset45-first-visit",
       "title": "Your First Visit to Coulisse Heir: What the Reset 45 Feels Like",
       "target_keyword": "scalp reset singapore",
