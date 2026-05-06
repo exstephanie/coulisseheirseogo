@@ -160,7 +160,10 @@ class handler(BaseHTTPRequestHandler):
                 })
                 return
 
-            self._respond(400, {"success": False, "error": "Expected application/json"}))
+            self._respond(400, {"success": False, "error": "Expected application/json"})
+
+        except Exception as e:
+            self._respond(500, {"success": False, "error": str(e)})
 
     def _respond(self, code: int, data: dict):
         self.send_response(code)
