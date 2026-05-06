@@ -1,11 +1,66 @@
 {
   "topics": [
     {
+      "id": "reset45-first-visit",
+      "title": "Your First Visit to Coulisse Heir: What the Reset 45 Feels Like",
+      "target_keyword": "scalp reset singapore",
+      "angle": "First-person walkthrough of the Reset 45 experience from arrival to aftercare — removes the mystery for first-time visitors and builds confidence to book",
+      "pillar": "luxury-treatments",
+      "priority": true,
+      "used": false
+    },
+    {
+      "id": "scalptox-signs-you-need-it",
+      "title": "5 Signs Your Scalp Needs a ScalpTox — Not Just a Shampoo",
+      "target_keyword": "scalp detox singapore",
+      "angle": "Symptom-led article targeting people researching oily scalp, product buildup, and itchiness — high commercial intent, leads naturally to ScalpTox booking",
+      "pillar": "scalp-health",
+      "priority": true,
+      "used": false
+    },
+    {
+      "id": "scalptox-what-is-it",
+      "title": "What Is ScalpTox and How Does It Actually Work?",
+      "target_keyword": "scalptox singapore",
+      "angle": "Clear explainer of the ScalpTox treatment — what it detoxes, who it is for, and what the session feels like from start to finish",
+      "pillar": "scalp-health",
+      "priority": true,
+      "used": false
+    },
+    {
+      "id": "reset45-how-often",
+      "title": "How Often Should You Book a Reset 45? A Scalp Wellness Frequency Guide",
+      "target_keyword": "ION orchard scalp treatment",
+      "angle": "Practical guide to building a Reset 45 routine — answers the most common question after a first session and encourages repeat bookings",
+      "pillar": "luxury-treatments",
+      "priority": true,
+      "used": false
+    },
+    {
+      "id": "scalptox-oily-scalp",
+      "title": "Oily Scalp in Singapore: Why ScalpTox Works When Shampoo Doesn't",
+      "target_keyword": "oily scalp treatment singapore",
+      "angle": "Targets one of the most searched scalp symptoms — explains why surface washing cannot clear follicle-level buildup and positions ScalpTox as the solution",
+      "pillar": "scalp-health",
+      "priority": true,
+      "used": false
+    },
+    {
+      "id": "reset45-vs-regular-wash",
+      "title": "Reset 45 vs a Regular Salon Wash: Why the Difference Matters",
+      "target_keyword": "scalp treatment singapore",
+      "angle": "Specific comparison showing why Reset 45 goes deeper — scalp analysis, targeted serums, private pod vs open salon chair",
+      "pillar": "luxury-treatments",
+      "priority": true,
+      "used": false
+    },
+    {
       "id": "stress-hair-loss-women",
       "title": "Stress and Hair Loss in Women: Why Your Body Tells the Truth",
       "target_keyword": "stress hair loss women singapore",
       "angle": "The mind-body connection between chronic stress and hair thinning — speaks to Singapore's high-pressure professional culture",
       "pillar": "stress-and-hair",
+      "priority": false,
       "used": false
     },
     {
@@ -14,6 +69,7 @@
       "target_keyword": "scalp reset singapore",
       "angle": "Explains resetting versus treating — educates on Coulisse Heir's core philosophy without comparing to competitors",
       "pillar": "scalp-health",
+      "priority": false,
       "used": false
     },
     {
@@ -22,6 +78,7 @@
       "target_keyword": "private scalp treatment singapore",
       "angle": "Sensory first-person description of the private pod experience — stillness, soft lighting, no open salon noise",
       "pillar": "self-care-culture",
+      "priority": false,
       "used": false
     },
     {
@@ -30,6 +87,7 @@
       "target_keyword": "postpartum hair loss singapore",
       "angle": "Addresses a common and emotionally charged experience for new mothers — practical and reassuring in tone",
       "pillar": "hair-loss-thinning",
+      "priority": false,
       "used": false
     },
     {
@@ -38,6 +96,7 @@
       "target_keyword": "scalp analysis singapore",
       "angle": "Demystifies the magnification process — what specialists look for and what the findings mean for your hair",
       "pillar": "scalp-health",
+      "priority": false,
       "used": false
     },
     {
@@ -46,6 +105,7 @@
       "target_keyword": "hair loss stress burnout singapore",
       "angle": "Connects workplace burnout (highly relatable in Singapore) to visible scalp and hair symptoms",
       "pillar": "stress-and-hair",
+      "priority": false,
       "used": false
     },
     {
@@ -54,6 +114,7 @@
       "target_keyword": "luxury scalp treatment women singapore",
       "angle": "A detailed walkthrough of the SHE Calm experience — sensory, emotional, and therapeutic — for women seeking deep restoration",
       "pillar": "luxury-treatments",
+      "priority": false,
       "used": false
     },
     {
@@ -62,6 +123,7 @@
       "target_keyword": "scalp wellness ritual singapore",
       "angle": "Reframes self-care as necessary maintenance — speaks to guilt many women feel about taking time for themselves",
       "pillar": "self-care-culture",
+      "priority": false,
       "used": false
     },
     {
@@ -70,6 +132,7 @@
       "target_keyword": "exosome hair treatment singapore",
       "angle": "Science-backed explainer that positions Coulisse Heir as medically credible without being cold or clinical",
       "pillar": "luxury-treatments",
+      "priority": false,
       "used": false
     },
     {
@@ -78,6 +141,7 @@
       "target_keyword": "thinning hair treatment singapore women",
       "angle": "Speaks to younger women experiencing early-stage hair thinning — normalises the experience and guides toward action",
       "pillar": "hair-loss-thinning",
+      "priority": false,
       "used": false
     },
     {
@@ -86,6 +150,7 @@
       "target_keyword": "scalp wellness singapore",
       "angle": "Educates readers on why Coulisse Heir is categorically different from a regular salon — no cuts, no colour, just restoration",
       "pillar": "scalp-health",
+      "priority": false,
       "used": false
     },
     {
@@ -94,6 +159,7 @@
       "target_keyword": "hormonal hair loss women singapore",
       "angle": "Covers hormonal shifts, PCOS, perimenopause — an underserved topic that speaks to a specific and loyal audience",
       "pillar": "hair-loss-thinning",
+      "priority": false,
       "used": false
     }
   ]

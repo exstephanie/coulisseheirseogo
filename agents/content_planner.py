@@ -49,9 +49,17 @@ class ContentPlanner:
 
         # Build topics block for prompt
         if available_topics:
+            priority_topics = [t for t in available_topics if t.get("priority", False)]
+            regular_topics = [t for t in available_topics if not t.get("priority", False)]
             topics_block = "AVAILABLE ARTICLE TOPICS (you MUST pick one from this list):\n"
-            for t in available_topics:
-                topics_block += f'- id: "{t["id"]}" | title: "{t["title"]}" | keyword: "{t["target_keyword"]}" | angle: {t["angle"]}\n'
+            if priority_topics:
+                topics_block += "\n⭐ PRIORITY topics — pick from these first before considering others:\n"
+                for t in priority_topics:
+                    topics_block += f'- id: "{t["id"]}" | title: "{t["title"]}" | keyword: "{t["target_keyword"]}" | angle: {t["angle"]}\n'
+            if regular_topics:
+                topics_block += "\nOther available topics (only if no priority topic fits):\n"
+                for t in regular_topics:
+                    topics_block += f'- id: "{t["id"]}" | title: "{t["title"]}" | keyword: "{t["target_keyword"]}" | angle: {t["angle"]}\n'
         else:
             topics_block = "No pre-approved topics remaining — choose a new on-brand topic."
 
